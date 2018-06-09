@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
           className="radioButton"
           name="radioGroup"
           checked={false}                  
+          onChange={props.onAnswerSelected}
         />
         <label className="radioCustomLabel">
           {props.answer}
@@ -19,6 +20,7 @@ import PropTypes from 'prop-types';
 
   Answers.propTypes = {  
     answer: PropTypes.string.isRequired,    
+    onAnswerSelected: PropTypes.func.isRequired,
   };
 
   export default Answers;

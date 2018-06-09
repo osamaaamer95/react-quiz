@@ -24,6 +24,7 @@ class App extends Component {
       },        
       result: ''
      };    
+     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
   }
 
   componentWillMount() {
@@ -60,6 +61,7 @@ class App extends Component {
     return this.shuffleArray(result);
   }
 
+  // coutesy: mitchgavan
   shuffleArray(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -81,6 +83,11 @@ class App extends Component {
 
   findInArray(arr, toFind) {
     return arr.find( o => o.meaning === toFind ) !== undefined 
+  }
+
+  // callback on selecting an answer
+  handleAnswerSelected(event) {
+    console.log(event.currentTarget)
   }
 
   render() {
@@ -105,6 +112,7 @@ class App extends Component {
            questionId={this.state.questionId}
            question={this.state.question}
            questionTotal={this.state.maxQuestions}
+           onAnswerSelected={this.handleAnswerSelected}  
           />
       </div>
     );

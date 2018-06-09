@@ -11,7 +11,8 @@ function QuizCore(props) {
         return (
             <Answers
             key={key.meaning}            
-            answer={key.meaning}                                    
+            answer={key.meaning}   
+            onAnswerSelected={props.onAnswerSelected}                                   
             />
         );
     }
@@ -39,7 +40,8 @@ function QuizCore(props) {
     counter: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
     questionId: PropTypes.number.isRequired,
-    questionTotal: PropTypes.number.isRequired
+    questionTotal: PropTypes.number.isRequired,
+    onAnswerSelected: PropTypes.func.isRequired
   };
 
   export default QuizCore;
