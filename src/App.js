@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import update from 'react-addons-update';
 
 import QuizCore from './components/QuizCore';
+import Results from './components/Results';
 import logo from './logo.svg';
 import './less/index.css';
 
@@ -19,11 +20,13 @@ class App extends Component {
       answerOptions: [],
       answerContent: '',
       maxAnswers : 4,
-      maxQuestions: 6,         
+      maxQuestions: 6,
+      resultDetail: [],         
       answersCount: {
         correct: 0,
         incorrect: 0     
       },        
+      correctAnswer: '',
       result: ''
      };    
      this.updateQuizProgress = this.updateQuizProgress.bind(this);
@@ -40,7 +43,8 @@ class App extends Component {
     // update state and set first question
     this.setState({
       question: dictionaryData[0].word,
-      answerOptions: shuffledAnswerOptions      
+      answerOptions: shuffledAnswerOptions,
+      correctAnswer: dictionaryData[0].meaning      
     });  
   }
 
@@ -107,6 +111,8 @@ class App extends Component {
     var updatedAnswersCount = null;
     console.log(selection)
 
+    var newResult = {"question": this.state.question, "isCorrect": selection, "meaning": this.state.correctAnswer};
+
     if (selection === "true") {
       updatedAnswersCount = update(this.state.answersCount, {
         correct: {$apply: (currentValue) => currentValue + 1}
@@ -117,9 +123,10 @@ class App extends Component {
       });
     }
  
-    this.setState(({
+    this.setState(prevState => ({
       answersCount: updatedAnswersCount,
-      answer: meaning
+      answer: meaning,
+      resultDetail: [...prevState.resultDetail, newResult]
     }));    
 
   }
@@ -136,6 +143,7 @@ class App extends Component {
       questionId: questionId,
       question: dictionaryData[counter].word,
       answerOptions: this.getRandomAnswers(dictionaryData[counter].meaning, dictionaryData),
+      correctAnswer: dictionaryData[counter].meaning,
       answer: ''
     });
   }
@@ -143,6 +151,31 @@ class App extends Component {
   showResult() {
     console.log("Results")
     console.log(this.state.answersCount.correct)
+    var result = this.state.answersCount;
+    this.setState({ result: "You got " + result.correct + " out of " + (result.correct + result.incorrect) + " correct" });
+  }
+
+  
+  renderQuiz() {
+    return (
+    <QuizCore
+      counter={this.state.counter}
+      answer={this.state.answer}           
+      answerOptions={this.state.answerOptions}           
+      questionId={this.state.questionId}
+      question={this.state.question}
+      questionTotal={this.state.maxQuestions}
+      onAnswerSelected={this.updateQuizProgress}  
+    />);
+  }
+
+  renderResult(summary) {
+    return (
+      <Results
+        resultSummary={this.state.result}
+        resultDetail={this.state.resultDetail}
+      />
+    );
   }
 
   render() {
@@ -152,15 +185,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to the English Quiz!</h1>
         </header>
-        <QuizCore
-           counter={this.state.counter}
-           answer={this.state.answer}           
-           answerOptions={this.state.answerOptions}           
-           questionId={this.state.questionId}
-           question={this.state.question}
-           questionTotal={this.state.maxQuestions}
-           onAnswerSelected={this.updateQuizProgress}  
-          />
+        {this.state.result ? this.renderResult() : this.renderQuiz()} 
       </div>
     );
   }

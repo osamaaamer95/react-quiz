@@ -19,25 +19,26 @@ function QuizCore(props) {
             />
         );
     }
-
+    
     return (
-       <div className="quiz">
-       {/* quiz progress */}
-         <Progress
-           counter={props.questionId}
-           total={props.questionTotal}
-         />
-         {/* quiz question */}  
-         <Word word={props.question} />
-         {/* generates answer options using map function */}
-         <ul className="answerOptions">
-            {props.answerOptions.map(generateAnswers)}
-         </ul>
-       </div>
+        <div className="quiz">
+        {/* quiz progress */}
+        <Progress
+        counter={props.questionId}
+        total={props.questionTotal}
+        />
+        {/* quiz question */}  
+        <Word word={props.question} />
+        {/* generates answer options using map function */}
+        <ul className="answerOptions">
+        {props.answerOptions.map(generateAnswers)}
+        </ul>
+        
+        </div>
     );
-  }
+}
 
-  QuizCore.propTypes = {
+QuizCore.propTypes = {
     answer: PropTypes.string.isRequired,        
     answerOptions: PropTypes.array.isRequired,
     counter: PropTypes.number.isRequired,
@@ -45,6 +46,6 @@ function QuizCore(props) {
     questionId: PropTypes.number.isRequired,
     questionTotal: PropTypes.number.isRequired,
     onAnswerSelected: PropTypes.func.isRequired
-  };
+};
 
-  export default QuizCore;
+export default QuizCore;
