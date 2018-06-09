@@ -10,8 +10,8 @@ function QuizCore(props) {
     function generateAnswers(key) {
         return (
             <Answers
-            key={key.meaning}
-            answerContent={key.meaning}                                      
+            key={key.meaning}            
+            answer={key.meaning}                                    
             />
         );
     }
@@ -23,11 +23,11 @@ function QuizCore(props) {
            counter={props.questionId}
            total={props.questionTotal}
          />
-         {/* quiz question */}
-         <Word content={props.question} />
+         {/* quiz question */}  
+         <Word word={props.question} />
          {/* generates answer options using map function */}
          <ul className="answerOptions">
-           
+            {props.answerOptions.map(generateAnswers)}
          </ul>
        </div>
     );
