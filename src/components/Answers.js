@@ -8,19 +8,23 @@ import PropTypes from 'prop-types';
           type="radio"
           className="radioButton"
           name="radioGroup"
-          checked={false}                  
+          checked={props.answerContent === props.answer}               
+          meaning={props.answerContent}
+          value={props.isAnswerCorrect}
           onChange={props.onAnswerSelected}
         />
-        <label className="radioCustomLabel">
-          {props.answer}
+        <label className="radioCustomLabel" htmlFor={props.answerContent}>
+          {props.answerContent}
         </label>
       </li>
     );
   }
 
-  Answers.propTypes = {  
-    answer: PropTypes.string.isRequired,    
-    onAnswerSelected: PropTypes.func.isRequired,
+  Answers.propTypes = {        
+    answer: PropTypes.string.isRequired,  
+    answerContent: PropTypes.string.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
+    onAnswerSelected: PropTypes.func.isRequired
   };
 
   export default Answers;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import update from 'react-addons-update';
 
 import QuizCore from './components/QuizCore';
 import logo from './logo.svg';
@@ -14,8 +15,9 @@ class App extends Component {
       counter: 0,   // keeps track of position in quiz
       questionId: 1,
       question: '',
-      answerOptions: [],
       answer: '',
+      answerOptions: [],
+      answerContent: '',
       maxAnswers : 4,
       maxQuestions: 6,         
       answersCount: {
@@ -24,7 +26,7 @@ class App extends Component {
       },        
       result: ''
      };    
-     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+     this.updateQuizProgress = this.updateQuizProgress.bind(this);
   }
 
   componentWillMount() {
@@ -86,8 +88,33 @@ class App extends Component {
   }
 
   // callback on selecting an answer
-  handleAnswerSelected(event) {
+  updateQuizProgress(event) {
     console.log(event.currentTarget)
+    // if more quiz questions remain continue to next question else display result
+    this.setAnswer(event.currentTarget.value, event.currentTarget.getAttribute('meaning'));
+
+    // show next question
+  }
+
+  setAnswer(selection, meaning) {
+    var updatedAnswersCount = null;
+    console.log(selection)
+
+    if (selection === "true") {
+      updatedAnswersCount = update(this.state.answersCount, {
+        correct: {$apply: (currentValue) => currentValue + 1}
+      });
+    } else {
+      updatedAnswersCount = update(this.state.answersCount, {
+        incorrect: {$apply: (currentValue) => currentValue + 1}
+      });
+    }
+ 
+    this.setState(({
+      answersCount: updatedAnswersCount,
+      answer: meaning
+    }));    
+
   }
 
   render() {
@@ -97,22 +124,14 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to the English Quiz!</h1>
         </header>
-        {/* <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> */}
-        {/* <Progress counter={1} total={10}/> */}
-        {/* <Word word="ABASH" />
-        <Answers answer="Sample answer"/>
-        <Answers answer="Sample answer"/>
-        <Answers answer="Sample answer"/> */}
         <QuizCore
-          counter={this.state.counter}
-           answer={this.state.answer}
-           answerOptions={this.state.answerOptions}
+           counter={this.state.counter}
+           answer={this.state.answer}           
+           answerOptions={this.state.answerOptions}           
            questionId={this.state.questionId}
            question={this.state.question}
            questionTotal={this.state.maxQuestions}
-           onAnswerSelected={this.handleAnswerSelected}  
+           onAnswerSelected={this.updateQuizProgress}  
           />
       </div>
     );

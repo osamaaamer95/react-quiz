@@ -11,8 +11,11 @@ function QuizCore(props) {
         return (
             <Answers
             key={key.meaning}            
-            answer={key.meaning}   
-            onAnswerSelected={props.onAnswerSelected}                                   
+            answer={props.answer}
+            questionId={props.questionId}
+            answerContent={key.meaning}   
+            isAnswerCorrect={key.correct}                                 
+            onAnswerSelected={props.onAnswerSelected}  
             />
         );
     }
@@ -35,7 +38,7 @@ function QuizCore(props) {
   }
 
   QuizCore.propTypes = {
-    answer: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,        
     answerOptions: PropTypes.array.isRequired,
     counter: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
