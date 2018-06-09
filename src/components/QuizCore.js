@@ -30,10 +30,11 @@ function QuizCore(props) {
         {/* quiz question */}  
         <Word word={props.question} />
         {/* generates answer options using map function */}
+        <div className="answerContainer">
         <ul className="answerOptions">
         {props.answerOptions.map(generateAnswers)}
         </ul>
-        
+        </div>
         </div>
     );
 }
