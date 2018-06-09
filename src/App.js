@@ -98,6 +98,7 @@ class App extends Component {
       setTimeout(() => this.displayNextQuestion(), 300);
     } else {        
       // show results
+      setTimeout(() => this.showResult(), 300);
     }
   }
 
@@ -137,6 +138,11 @@ class App extends Component {
       answerOptions: this.getRandomAnswers(dictionaryData[counter].meaning, dictionaryData),
       answer: ''
     });
+  }
+
+  showResult() {
+    console.log("Results")
+    console.log(this.state.answersCount.correct)
   }
 
   render() {
