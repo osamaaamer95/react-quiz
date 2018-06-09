@@ -13,12 +13,12 @@ ul {
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 60px;
 }
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 120px;
   padding: 20px;
   color: white;
 }
@@ -32,11 +32,13 @@ ul {
 }
 
 .word {
-  
-}
+  margin-top: 40px;
+  font-size: 38px;
+} 
 
 .answerContainer {
   text-align: center;  
+  margin-top: 40px;
   // width: 80%;
   .answerOptions {
     margin: auto;
@@ -67,12 +69,38 @@ ul {
 
 }
 
+.resultSummary {
+  background: yellow; 
+  padding: 16px;
+}
+
+.resultRows{
+  text-align: left;
+  margin: 40px;
+
+  .resultRow {
+    margin: 10px;
+
+    .word{
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .meaning{
+      // margin-left: 10px;
+    }
+    .userResult{
+      margin-top: 10px;
+    }
+  }
+}
+
 .quizProgress {
   height: 40px;
   margin-top: 20px;
   .inner {
     height: inherit;
-    background: red;
+    background: rgb(85, 253, 113);
+    margin: 4px 20px;
   }
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
   function Word(props) {
     return (
-      <h2 className="word">{props.word}</h2>
+      <div className="word">{props.word}</div>
     );
   }
 

@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ResultRow(props) {
+    const isCorrect = props.isCorrect;
+    console.log(isCorrect)
     return (
-        <div>
-            <h3 className="resultSummary">{props.word}</h3>
+        <div className="resultRow">
+            <h3 className="word">{props.word}</h3>
             <div className="meaning">
-                {props.answerContent}
+                CORRECT ANSWER: {props.answerContent}
             </div>
-            {props.isCorrect}
+            <div className="userResult"> You got this question <b>{ isCorrect === "true" ? "right" : "wrong" }</b>.</div> 
         </div>        
     );
 }
