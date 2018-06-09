@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 function Progress(props) {
   return (
     <div className="quizProgress">
-        <div className="inner">
-         <span>{props.counter}</span> of <span>{props.total}</span>
+        <span>{props.counter}</span> of <span>{props.total}</span>
+        <div className="inner" style={{ "width": ((props.counter-1)/props.total)*100 + "%"}}>
         </div>      
     </div>
   );
