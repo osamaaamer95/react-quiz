@@ -3,7 +3,7 @@ import update from 'react-addons-update';
 
 import QuizCore from './components/QuizCore';
 import logo from './logo.svg';
-import './App.css';
+import './less/index.css';
 
 import dictionaryData from './dictionary/dict.json'
 
@@ -94,8 +94,14 @@ class App extends Component {
     this.setAnswer(event.currentTarget.value, event.currentTarget.getAttribute('meaning'));
 
     // show next question
+    if (this.state.questionId < this.state.maxQuestions) {        
+      setTimeout(() => this.displayNextQuestion(), 300);
+    } else {        
+      // show results
+    }
   }
 
+  // update user score and state
   setAnswer(selection, meaning) {
     var updatedAnswersCount = null;
     console.log(selection)
@@ -115,6 +121,22 @@ class App extends Component {
       answer: meaning
     }));    
 
+  }
+
+  // present next question on answer selection
+  displayNextQuestion() {
+    // increment counters
+    const counter = this.state.counter + 1;
+    const questionId = this.state.questionId + 1;
+
+    // update the state
+    this.setState({
+      counter: counter,
+      questionId: questionId,
+      question: dictionaryData[counter].word,
+      answerOptions: this.getRandomAnswers(dictionaryData[counter].meaning, dictionaryData),
+      answer: ''
+    });
   }
 
   render() {

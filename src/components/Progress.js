@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 function Progress(props) {
   return (
     <div className="quizProgress">
-      <span>{props.counter}</span> of <span>{props.total}</span>
+        <div className="inner">
+         <span>{props.counter}</span> of <span>{props.total}</span>
+        </div>      
     </div>
   );
 }
