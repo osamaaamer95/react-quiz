@@ -5,8 +5,7 @@ import ResultSummary from './ResultSummary';
 import ResultRow from './ResultRow';
 
 function Results(props) {
-    function generateSummary(key) {
-        console.log(key)
+    function generateSummary(key) {        
         return (
             <ResultRow
             key={key.question}   

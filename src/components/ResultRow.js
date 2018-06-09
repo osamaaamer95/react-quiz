@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 
 function ResultRow(props) {
     const isCorrect = props.isCorrect;
-    console.log(isCorrect)
     return (
         <div className="resultRow">
             <h3 className="word">{props.word}</h3>
             <div className="meaning">
-                CORRECT ANSWER: {props.answerContent}
+                <b>CORRECT ANSWER: </b>{props.answerContent}
             </div>
             <div className="userResult"> You got this question <b>{ isCorrect === "true" ? "right" : "wrong" }</b>.</div> 
         </div>        
